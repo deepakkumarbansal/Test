@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+
+<body>
+
+    <h1>Hey Developer 👋</h1>
+    <form action="">
+        <p>
+            <span>Base Url:</span>
+            <span id="base-url"></span>
+            <br>
+            <span>Final Url:</span>
+            <span id="final-url"></span>
+        </p>
+        <label for="url">Please Enter the url</label>
+        <br>
+        <input type="text" id="url">
+        <button type="submit">Submit</button>
+        <div>
+            <span>Resullt:</span>
+            <span id="result">N/A</span>
+        </div>
+
+    </form>
+</body>
+<script>
+    const baseUrl = "https://smlapitemp.asmadiya.net/sml/api";
+    document.getElementById("base-url").innerText = baseUrl;
+
+    const handleSubmit = async (e) => {
+        const url = document.getElementsByTagName("input")[0].value;
+        e.preventDefault();
+        const finalUrl = baseUrl + url;
+        document.getElementById("final-url").innerText = finalUrl;
+        console.log(finalUrl);
+        const res = await fetch(finalUrl, {
+            method: 'get',
+        })
+        const ans = await res.json();
+        console.log(ans);
+
+        const result = document.getElementById("result");
+        result.innerText = ans.msg;
+    }
+    const submitButton = document.getElementsByTagName("button")[0];
+    submitButton.addEventListener("click", handleSubmit);
+</script>
+
+</html>
